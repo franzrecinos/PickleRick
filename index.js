@@ -12,6 +12,11 @@ var morgan = require('morgan');
 // which is a best practice in Docker. Friends don't let friends code their apps to
 // do app logging to files in containers.
 
+var request = require('request')
+var sortJsonArray = require('sort-json-array');
+
+var util = require('./src/services');
+
 // Constants
 const PORT = process.env.PORT || 8080;
 // if you're not using docker-compose for local development, this will default to 8080
@@ -33,6 +38,17 @@ app.get('/healthz', function (req, res) {
 	// if you want, you should be able to restrict this to localhost (include ipv4 and ipv6)
   res.send('I am happy and healthy\n');
 });
+
+app.get('/salary_sorted_jobs', function(req, res) {
+  var result = util.getJobs(function(err,response,data){
+    if(!err){
+      var jsonData = JSON.parse(data)
+      // console.log(jsonData.data)
+      // var orderedData = sortJsonArray(JSON.parse(jsonData['data']), 'salary','des');
+      res.send(jsonData.data);
+    }
+   });
+})
 
 var server = app.listen(PORT, function () {
   console.log('Webserver is ready');
