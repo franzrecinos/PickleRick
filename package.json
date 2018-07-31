@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "express": "^4.16.3",
-    "morgan": "^1.8.1"
+    "morgan": "^1.8.1",
+    "request": "^2.87.0",
+    "sort-json-array": "^0.1.7"
   },
   "devDependencies": {
     "chai": "^4.1.2",
